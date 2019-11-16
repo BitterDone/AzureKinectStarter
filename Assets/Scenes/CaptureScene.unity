@@ -1186,11 +1186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adee47d35219b461ea5e40f9d764ea6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FILE_PATH: /Users/stahle/Unity2019/APRLM_SPA/Assets/RandomSkeletalDataFolder/RandomSkeletalDataFolder/RandomSkeletalDataFolder/myfile
-  FILE_NAME: myfile
+  FILE_PATH: D:\Repos\PersonalGithub\AzureKinectStarter\PoseFolder
+  FILE_NAME: poses
   FILE_DESCRIPTION: '[Insert file description here]'
-  FOLDER_NAME: RandomSkeletalDataFolder
-  FOLDER_PATH: /Users/stahle/Unity2019/APRLM_SPA/Assets/RandomSkeletalDataFolder/RandomSkeletalDataFolder/RandomSkeletalDataFolder
+  FOLDER_NAME: 
+  FOLDER_PATH: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
