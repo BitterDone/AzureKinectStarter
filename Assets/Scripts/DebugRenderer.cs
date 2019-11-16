@@ -5,7 +5,6 @@ using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using Stahle.Utility;
 using APRLM.Game;
-using APRLM.Utilities;
 using UnityEngine.UI;
 using System.Collections;
 
