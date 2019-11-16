@@ -116,27 +116,7 @@ public class DebugRenderer : PersistantSingleton<DebugRenderer>
 		}
 	}
 #endif
-
-    void CaptureSkeletonsFromFakeRandomData()
-    {
-        MakeRandomSkeleton makeSkeleton = new MakeRandomSkeleton();
-        this.skeleton = makeSkeleton.MakeSkeleton();
-        skeletons.Add(this.skeleton);
-		
-        for (var i = 0; i < (int)JointId.Count; i++)
-        {
-            var joint = this.skeleton.Joints[i];
-            var pos = joint.Position;
-            // Debug.Log("pos: " + (JointId)i + " " + pos[0] + " " + pos[1] + " " + pos[2]);
-            var rot = joint.Orientation;
-            // Debug.Log("rot " + (JointId)i + " " + rot[0] + " " + rot[1] + " " + rot[2] + " " + rot[3]); // Length 4
-            var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
-            var r = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
-            var obj = blockmanArray[i];
-            obj.transform.SetPositionAndRotation(v, r);
-        }
-    }
-
+	
     public void RecordPose_LinkedToToggle()
     {
 		canUpdate = !canUpdate;
