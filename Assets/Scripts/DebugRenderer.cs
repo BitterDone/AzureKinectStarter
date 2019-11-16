@@ -86,25 +86,25 @@ public class DebugRenderer : PersistantSingleton<DebugRenderer>
 #if UNITY_EDITOR_OSX
             CaptureSkeletonsFromFakeRandomData();
 #endif
-            if (skeletons.Count > 4)
-            {
-                Debug.Log("we have enough skeletons");
-                //Disable this script's Update loop's logic from running
-                canUpdate = false;
-                //Activate the parent GO containing the averaged position blockman
-                CapturedResultsRoot.SetActive(true);
-                //Clear the text, which is currently holding the last avg vector3 positions of each joint
-                JointPositionArea_Text.text = "";
-                //Find the avg of the current joints of the 5 skele's captured
-                FindAverageSkeletalPosition();
-                //Enable capturedBlockman, disable first blockman
-                EnableBlockman(true);
-                //display what pose was captured
-                //"Displaying captured results for: " + [pose]
-                //clear
-                displayCapturedPose.text = "";
-                displayCapturedPose.text += "Displaying averaged joint positions in: " + GameManager.Instance.currentPose.name;
-            }
+            // if (skeletons.Count > 4)
+            // {
+            //     Debug.Log("we have enough skeletons");
+            //     //Disable this script's Update loop's logic from running
+            //     canUpdate = false;
+            //     //Activate the parent GO containing the averaged position blockman
+            //     CapturedResultsRoot.SetActive(true);
+            //     //Clear the text, which is currently holding the last avg vector3 positions of each joint
+            //     JointPositionArea_Text.text = "";
+            //     //Find the avg of the current joints of the 5 skele's captured
+            //     FindAverageSkeletalPosition();
+            //     //Enable capturedBlockman, disable first blockman
+            //     EnableBlockman(true);
+            //     //display what pose was captured
+            //     //"Displaying captured results for: " + [pose]
+            //     //clear
+            //     displayCapturedPose.text = "";
+            //     displayCapturedPose.text += "Displaying averaged joint positions in: " + GameManager.Instance.currentPose.name;
+            // }
 
         }//end if(canUpdate) 
     }//end Update()
@@ -167,9 +167,9 @@ public class DebugRenderer : PersistantSingleton<DebugRenderer>
 				{
 					var joint = this.skeleton.Joints[i];
 					var pos = joint.Position;
-					Debug.Log("pos: " + (JointId)i + " " + pos[0] + " " + pos[1] + " " + pos[2]);
+					// Debug.Log("pos: " + (JointId)i + " " + pos[0] + " " + pos[1] + " " + pos[2]);
 					var rot = joint.Orientation;
-					Debug.Log("rot " + (JointId)i + " " + rot[0] + " " + rot[1] + " " + rot[2] + " " + rot[3]); // Length 4
+					// Debug.Log("rot " + (JointId)i + " " + rot[0] + " " + rot[1] + " " + rot[2] + " " + rot[3]); // Length 4
 					var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
 					var r = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
 					var obj = blockmanArray[i];
@@ -267,79 +267,84 @@ public class DebugRenderer : PersistantSingleton<DebugRenderer>
     //todo second time pressing this button it will say "recording stopped!", it should say started if we want to clikc the button every time
     //so we should mark this toggle as off again after we complete a pose
     {
-        if (GameManager.Instance.poseList.Count > 0)
-        {
-            Color recordingRed = new Color(255, 0, 0);
-            Color disabledGrey = new Color(211, 211, 211);
+		//change
+		canUpdate = !canUpdate;
+		// /change
 
-            ColorBlock cb = recordPoseToggle.colors;
+        // if (GameManager.Instance.poseList.Count > 0)
+        // {
+			
+            // Color recordingRed = new Color(255, 0, 0);
+            // Color disabledGrey = new Color(211, 211, 211);
 
-            if (!recordPoseToggle.isOn)
-            {
-                //then we are pressing it off, change selected color to disabled grey
-                cb.selectedColor = disabledGrey;
-                //todo implement a text change to "stop recording"
-                RecordNextPoseToggleText.text = "Record Next Pose";
+            // ColorBlock cb = recordPoseToggle.colors;
 
-                print("Recording stopped!");
-            }
-            else //comes here first time we press
-            {
-                //then we are pressing it on, change selected color to recording red
-                cb.selectedColor = recordingRed;
-                RecordNextPoseToggleText.text = "Stop Recording"; //todo implement killswitch
-                print("recording started!");
-            }
-            //assign the toggle the color
-            recordPoseToggle.colors = cb;
+            // if (!recordPoseToggle.isOn)
+            // {
+            //     //then we are pressing it off, change selected color to disabled grey
+            //     cb.selectedColor = disabledGrey;
+            //     //todo implement a text change to "stop recording"
+            //     RecordNextPoseToggleText.text = "Record Next Pose";
 
-            StartCoroutine(StartCountdown());
-        }
+            //     print("Recording stopped!");
+            // }
+            // else //comes here first time we press
+            // {
+            //     //then we are pressing it on, change selected color to recording red
+            //     cb.selectedColor = recordingRed;
+            //     RecordNextPoseToggleText.text = "Stop Recording"; //todo implement killswitch
+            //     print("recording started!");
+            // }
+            // //assign the toggle the color
+            // recordPoseToggle.colors = cb;
+
+            // StartCoroutine(StartCountdown());
+        // }
     }
 
 
-    IEnumerator StartCountdown()
-    {
-        countdownParent.SetActive(true);
-        countdownText.text = "3...";
-        yield return new WaitForSeconds(.5f); //!sped up for testing!
-        countdownText.text += "2...";
-        yield return new WaitForSeconds(.5f);
-        countdownText.text += "1...";
-        yield return new WaitForSeconds(.5f);
-        countdownParent.SetActive(false);
+    // IEnumerator StartCountdown()
+    // {
+    //     countdownParent.SetActive(true);
+    //     countdownText.text = "3...";
+    //     yield return new WaitForSeconds(.5f); //!sped up for testing!
+    //     countdownText.text += "2...";
+    //     yield return new WaitForSeconds(.5f);
+    //     countdownText.text += "1...";
+    //     yield return new WaitForSeconds(.5f);
+    //     countdownParent.SetActive(false);
 
-        canUpdate = true;
-    }
+    //     canUpdate = true;
+    // }
 
-    public void PoseAccepted_linkToButton()
-    {
-		Debug.Log("pose accepted. Writing data to file...");
-        countdownText.text = "";
-        WriteDataToFile();
-        CapturedResultsRoot.SetActive(false);
-		EnableBlockman(false);
-		ClearSkeletonsList();
+    // public void PoseAccepted_linkToButton()
+    // {
+	// 	Debug.Log("pose accepted. Writing data to file...");
+    //     countdownText.text = "";
+    //     WriteDataToFile();
+    //     CapturedResultsRoot.SetActive(false);
+	// 	EnableBlockman(false);
+	// 	ClearSkeletonsList();
 
-        GameManager.Instance.MarkCurrentPoseCompleted();
-	}
-    void WriteDataToFile()
-    {
-        //this assumes makeFile.cs is dragged onto the same obj as DebugRenderer.cs
-        //0 get reference to the file making script
-        MakeFile makeFile = GetComponent<MakeFile>();
-        //1 give makeFile a string that it will write to a .txt file
-        makeFile.WriteToFile(displayCapturedPose.text +"\n"+ JointPositionArea_Text.text);
-    }
-	public void PoseDeclined_linkToButton() 
-	{
-		Debug.Log("pose declined. clearing captured data");
-        countdownText.text = "";
-        //hide the captured results panel
-        CapturedResultsRoot.SetActive(false);
-        //disable captured blockman, enable live blockman
-		EnableBlockman(false);
-        //reset the skeletons list that we just captured
-		ClearSkeletonsList();
-	}
+    //     GameManager.Instance.MarkCurrentPoseCompleted();
+	// }
+    // void WriteDataToFile()
+    // {
+    //     //this assumes makeFile.cs is dragged onto the same obj as DebugRenderer.cs
+    //     //0 get reference to the file making script
+    //     MakeFile makeFile = GetComponent<MakeFile>();
+    //     //1 give makeFile a string that it will write to a .txt file
+    //     makeFile.WriteToFile(displayCapturedPose.text +"\n"+ JointPositionArea_Text.text);
+    // }
+	// public void PoseDeclined_linkToButton() 
+	// {
+	// 	Debug.Log("pose declined. clearing captured data");
+    //     countdownText.text = "";
+    //     //hide the captured results panel
+    //     CapturedResultsRoot.SetActive(false);
+    //     //disable captured blockman, enable live blockman
+	// 	EnableBlockman(false);
+    //     //reset the skeletons list that we just captured
+	// 	ClearSkeletonsList();
+	// }
 }
