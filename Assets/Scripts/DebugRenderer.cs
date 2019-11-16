@@ -26,7 +26,7 @@ public class DebugRenderer : PersistantSingleton<DebugRenderer>
 	public Text JointPositionArea_Text;
 
     [HideInInspector]public bool canUpdate = false;
-    public UnityEngine.UI.Image recordPoseToggleImage; //dragged in manually
+    // public UnityEngine.UI.Image recordPoseToggleImage; //dragged in manually
     public Toggle recordPoseToggle;//dragged in manually
     public GameObject countdownParent;//manually dragged in
     public Text countdownText; //manually dragged in
